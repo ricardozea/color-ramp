@@ -1,0 +1,19 @@
+{
+  "name": "color-ramp",
+  "version": "1.0.0",
+  "description": "A color ramp generator application",
+  "type": "module",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "compression": "^1.8.0",
+    "express": "^5.1.0",
+    "ws": "^8.18.2"
+  },
+  "main": "script.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

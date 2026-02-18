@@ -1,0 +1,51 @@
+ColorRamp - Create accessible color ramps in less than 5 seconds, no BS.
+
+🎨 Seamlessly integrate Color-Ramp.com with Figma to create beautiful, accessible color ramps in seconds!
+
+✨ Why ColorRamp?
+
+Although there are many tools that can create color ramps, no tool does it as quick, efficient, and with some many features like Color-Ramp.com. The ColorRamp Figma plugin improves the creation of accessible color ramps via variables as color primitives, making it effortless to generate design system colors, and color tokens.
+
+🔄 How It Works
+
+Generate perfect color ramps on [Color-Ramp.com](https://color-ramp.com)
+Export your color ramps as JSON.
+Paste directly into Figma with the ColorRamp plugin.
+Voilà! Your WCAG-compliant color primitives are ready to use in both Light and Dark modes.
+
+🎯 Key Features
+
+✨ Perfect Color Ramps for your Design Systems
+Automatically generate Light and Dark mode variants.
+All ramps are WCAG-compliant.
+All color ramps use the Tailwind CSS color scale (50-950).
+
+🔄 Seamless Figma Integration
+One-click import of color as variables either as Paired or Themed color primitives.
+Automatic organization in your Figma color ramp libraries.
+Maintain naming conventions from the Color-Ramp.com to Figma.
+Preserve color relationships.
+
+🚀 Supercharge Your Workflow
+
+💡 For Designers
+Stop guessing color values. The JSON code has it all figured out.
+Ensure accessibility compliance.
+Maintain consistency across projects.
+Speed up your design system workflow.
+
+🤝 Perfect For
+Web Designers
+UI/UX Designers
+Product Designers
+Design System Teams
+Front-end Developers
+Anyone who loves beautiful, functional color systems!
+
+## 📦 What's Included
+Figma plugin for easy import.
+Web app for color generation.
+Detailed documentation.
+Regular updates and improvements.
+
+Created with ❤️ by [Ricardo Zea](https://ricardozea.design) | [Color-Ramp.com](https://color-ramp.com) | [@color_ramp](https://twitter.com/color_ramp)

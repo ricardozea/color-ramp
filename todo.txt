@@ -1,0 +1,52 @@
+Feb. 2026
+
+✅ If a collection is empty, allow dragging and dropping a color box into it.
+✅ #CCC en Dark ramp en HSL
+✅ Consolidate .collection-color-item
+✅ Ignore /backup folder
+✅ Drag & Drop not working on HSL
+✅ When moving a color box to the beginning, the indicator line is jacked up
+✅ Tooltip not working on OKLCH and HSL
+✅ Reformat CSS comments
+✅ When loading the page, it's not possible to copy values from HSL and OKLCH shades. Copying works after entering a new color.
+✅ "Base Color" tooltip not showing in OKLCH. It shows in HSL.
+✅ "Copied!" tooltip appearing below the other tooltip.
+✅ Indicator line inside and outside the blue border
+✅ Switch doesn't change color when it's black or white
+✅ Create toasts for deleting color and deleting collection
+✅ Order lists: last list first
+✅ Add timestamp to lists: "dd/mm/yyyy @ hh:mm am/pm"
+✅ Add an * to the base color in the JSON that goes to Figma.
+✅ Make the Paired format the default in the export dropdown
+✅ Switch toggle in HSL has incorrect color
+✅ Links in the homepage are broken
+GitHub
+
+MODALS
+✅ Add ESC to close Modals
+✅ Not working on index.html
+✅ Thank you message
+✅ New collection
+✅ Delete collection
+✅ Delete color
+✅ Edit error messages
+✅ Primary button is screwed because it adapts to the active color. Try with #00f
+✅ Scroll with modal
+✅ Spacing in modals with text
+✅ Modals in Black and White are screwed
+✅ Import Collections (JSON) doesn't focus on the upload file
+
+TOASTS
+✅ Add color toast
+✅ Make the toast a global component
+✅ Success toast
+✅ Info toast
+
+Future improvements:
+Error toast
+Warning toast
+
+
+
+
+

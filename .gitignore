@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Local backups / archives
+Files/
+
+# Build artifacts / logs
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

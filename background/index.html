@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Background</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Add Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <canvas id="background-canvas"></canvas>
+  <script src="script.js"></script>
+  <script>
+    // Live reload WebSocket client
+    const socket = new WebSocket('ws://localhost:3007'); // Ensure this port matches background-server.cjs
+
+    socket.onopen = function() {
+      console.log('Live reload WebSocket connected to background server.');
+    };
+
+    socket.onmessage = function(event) {
+      if (event.data === 'reload') {
+        console.log('Reloading page...');
+        window.location.reload();
+      }
+    };
+
+    socket.onclose = function() {
+      console.log('Live reload WebSocket disconnected from background server.');
+    };
+
+    socket.onerror = function(error) {
+      console.error('Live reload WebSocket error:', error);
+    };
+  </script>
+</body>
+</html>

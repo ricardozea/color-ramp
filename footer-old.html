@@ -1,0 +1,37 @@
+<footer>
+  <p>Created by <a href="https://ricardozea.design" target="_blank" title="Link opens a new tab" class="dynamic-color-text">Ricardo Zea</a></p>
+  <p><a href="#" id="contactRicardo" aria-label="Contact Ricardo" title="Send me a message!">Contact me!</a></p>
+
+  <!-- Contact Form Modal -->
+  <div id="contactRicardoModalBackdrop" class="modal-backdrop"></div>
+  <div id="contactRicardoModal" class="modal contact-ricardo-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <button id="closeContactRicardoModal" class="modal-close-btn" aria-label="Close modal">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+    </button>
+    <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+      <h3 id="contactModalTitle">Contact me 👇🏽</h3>
+
+      <!-- Replace with your Access Key -->
+      <input type="hidden" name="access_key" value="b249942b-5b54-46c1-a835-0231228f15fa">
+
+      <!-- Form Inputs. Each input must have a name="" attribute -->
+      <div class="side-by-side">
+        <label for="name-input">Name:
+          <input type="text" name="name" id="name-input" required>
+        </label>
+        <label for="email-input">Email:
+          <input type="email" name="email" id="email-input" required>
+        </label>
+      </div>
+      <label for="message-input">Message <small>(optional)</small>:
+        <textarea name="message" id="message-input"></textarea>
+      </label>
+      <input type="hidden" name="subject" class="hidden" value="color-ramp.com - Contact Form">
+
+      <!-- Honeypot Spam Protection -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+      <button type="submit" class="submit-button">Send message! 👉🏽</button>
+      <small class="disclaimer">No worries, no sensitive data being transmitted. This form is only used to contact me.</small>
+    </form>
+  </div>
+</footer>

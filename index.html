@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- ✅ Basic SEO -->
+	<title>Color Ramp - Create accessible color ramps in less than 5 seconds, no BS.</title>
+	<meta name="description"
+		content="Create accessible, WCAG-compliant color ramps in less than 5 seconds — no BS. Then import them into Figma and design with precision and confidence.">
+	<meta name="keywords"
+		content="color ramp generator, color ramp, color generator, color scale, color palette, color harmony, color accessibility, color ramps, accessible colors, color contrast, WCAG, design system color ramps, OKLCH color ramps, HSL color ramps">
+	<meta name="author" content="Ricardo Zea - Senior Web & Product Designer">
+	<meta name="robots" content="index, follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+
+	<!-- ✅ Open Graph (LinkedIn, Facebook, Discord, Slack, etc.) -->
+	<meta property="og:title" content="Color Ramp - Create accessible color ramps in less than 5 seconds, no BS.">
+	<meta property="og:description"
+		content="Create accessible, WCAG-compliant color ramps in less than 5 seconds — no BS. Then import them into Figma and design with precision and confidence.">
+	<meta property="og:image" content="https://color-ramp.com/og-preview.png">
+	<meta property="og:url" content="https://color-ramp.com">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Color-Ramp.com">
+
+	<!-- ✅ Twitter Card (for X/Twitter) -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Color Ramp - Create accessible color ramps in less than 5 seconds, no BS.">
+	<meta name="twitter:description"
+		content="Create accessible, WCAG-compliant color ramps in less than 5 seconds — no BS. Then import them into Figma and design with precision and confidence.">
+	<meta name="twitter:image" content="https://color-ramp.com/og-preview.png">
+	<meta name="twitter:creator" content="@RicardoZea">
+
+	<!-- ✅ Publication Metadata -->
+	<meta property="article:published_time" content="2025-07-01T00:00:00Z">
+	<meta property="article:modified_time" content="2025-10-17T00:00:00Z">
+
+	<!-- ✅ Favicons & App Icons -->
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+	<!-- ✅ Theme / PWA -->
+	<meta name="theme-color" content="#001D38">
+	<meta name="application-name" content="Color Ramp">
+
+	<!-- ✅ Canonical URL -->
+	<link rel="canonical" href="https://color-ramp.com">
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Kalam:wght@300&family=Cookie&display=swap"
+		rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/styles-v2.css">
+
+	<!-- Icons -->
+	<script src="https://unpkg.com/lucide@latest"></script>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BHWLY3QNXH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-BHWLY3QNXH');
+	</script>
+</head>
+
+<body class="homepage">
+	<canvas id="background-canvas"></canvas>
+
+	<header class="header-homepage">
+		<div class="homepage-container header-container">
+			<a href="/" class="logo-link">
+				<img src="images/logo-color-ramp-full.svg" alt="Color Ramp Logo" class="logo">
+			</a>
+			<nav class="color-space-nav">
+				<span>Choose your color space:</span>
+				<a href="index-oklch.html" title="OKLCH color space">OKLCH</a>
+				<a href="index-hsl.html" title="HSL color space">HSL</a>
+				<script src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button"
+					data-slug="ricardozea" data-color="#000" data-emoji="☕" data-font="Cookie"
+					data-text="Buy me a coffee :)"></script>
+				<button id="toggle-bg-animation" class="toggle-bg-btn" title="Disable background movement"
+					aria-label="Disable background movement">▶</button>
+			</nav>
+		</div>
+	</header>
+
+	<main>
+		<div class="homepage-container">
+
+			<!-- Hero Section -->
+			<section class="hero">
+				<div class="hero-content">
+					<h1>Create accessible <span class="color-highlight">color ramps</span> in less than 5 seconds, no
+						BS.</h1>
+					<p class="script">(then import them into Figma! 😁👍🏼)</p>
+					<p class="subtitle">Perfect for designers and developers looking to create harmonious and accessible
+						Light and Dark mode ramps for their design projects.</p>
+					<p>All shades are guaranteed to meet WCAG 2.2 AA and AAA accessibility standards, on OKLCH and HSL
+						color spaces.</p>
+					<div class="cta-group">
+						<h2>Start creating!</h2>
+						<p>Choose your color space:</p>
+						<div class="button-group">
+							<a href="index-oklch.html" class="btn btn-oklch">OKLCH</a>
+							<a href="index-hsl.html" class="btn btn-hsl">HSL</a>
+						</div>
+						<div class="rotating-border-container button-group figma-plugin">
+							<div class="rotating-border-glow"></div>
+							<a href="https://www.figma.com/community/plugin/1523173886699098356/colorramp"
+								class="rotating-border-element btn btn-figma" target="_blank"
+								title="Link opens in a new tab">
+								<img src="images/logo-figma.svg" alt="Figma Logo" class="figma-logo">
+								Figma Plugin
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="hero-ramps-container">
+					<div class="hero-ramps-grid"></div>
+					<p>Guess what these color ramps were created with 😎?</p>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="features">
+				<div class="section-header">
+					<h2>Powerful Features</h2>
+					<p>Have a specific feature in mind? <a href="#" id="contactRicardo" aria-label="Contact Ricardo"
+							title="Send me a message!" class="dynamic-color-text">Send me a message!</a></p>
+				</div>
+				<div class="features-grid">
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="accessibility" class="accessibility"></i>
+						</div>
+						<h3>Accessibility Focus</h3>
+						<h4>Worried your colors won’t be inclusive?</h4>
+						<p>Every shade generated meets WCAG 2.2 <span class="code">AA</span> and <span
+								class="code">AAA</span> standards. That means more accessible, inclusive designs right
+							out of the box—on both light and dark backgrounds.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none">
+								<g clip-path="url(#a)">
+									<path fill="#0ACF83" stroke="#FD91FF" stroke-width=".5"
+										d="M11.16 21.58h5.09v5.09a5.09 5.09 0 1 1-5.09-5.09Z" />
+									<path fill="#A259FF"
+										d="M5.83 16a5.34 5.34 0 0 1 5.33-5.33h5.33v10.66h-5.33A5.34 5.34 0 0 1 5.83 16Z" />
+									<path fill="#F24E1E"
+										d="M5.83 5.33A5.34 5.34 0 0 1 11.16 0h5.33v10.67h-5.33a5.34 5.34 0 0 1-5.33-5.34Z" />
+									<path fill="#FF7262" d="M16.5 0h5.33a5.34 5.34 0 0 1 0 10.67h-5.34V0Z" />
+									<path fill="#1ABCFE"
+										d="M27.16 16a5.34 5.34 0 1 1-10.67 0 5.34 5.34 0 0 1 10.67 0Z" />
+								</g>
+								<defs>
+									<clipPath id="a">
+										<path fill="#fff" d="M.5 0h32v32H.5z" />
+									</clipPath>
+								</defs>
+							</svg>
+						</div>
+						<h3>Import Ramps to Figma</h3>
+						<h4>Want your colors right inside Figma?</h4>
+						<p>Export your ramp as JSON and bring it straight into Figma with a single import. No manual
+							typing—just clean, structured color styles ready to use. See the plugin in the <a
+								href="https://www.figma.com/community/plugin/1523173886699098356/colorramp"
+								title="Link opens a new tab" target="_blank">Figma Community</a>.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="blend" class="blend"></i>
+						</div>
+						<h3>Contrast Ratios</h3>
+						<h4>Loading a plugin to check contrast?</h4>
+						<p>Color-Ramp.com does the heavy lifting. Each shade shows your contrast ratio for both white
+							and deep‑dark backgrounds, so you can see compliance (<span class="code">AA</span> and <span
+								class="code">AAA</span>) at a glance.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="swatch-book" class="swatch-book"></i>
+						</div>
+						<h3>Color Uniqueness</h3>
+						<h4>Frustrated with color repetition or similarity?</h4>
+						<p>No duplicates here. Every shade is UNIQUE, and dark‑mode tones are just a bit brighter than
+							light‑mode ones for improved accessibility.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="sun-moon" class="sun-moon"></i>
+						</div>
+						<h3>Lightest Light and Darkest Dark</h3>
+						<h4>Need the extreme ends of the spectrum?</h4>
+						<p>Each ramp is pushed to its limits—making the lightest light and darkest dark possible without
+							turning pure white or black, all while keeping your base color INTACT.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="star" class="star"></i>
+						</div>
+						<h3>Choose Default Mode</h3>
+						<h4>Designing for a dark-first brand?</h4>
+						<p>Not all projects begin with a light-themed interface. The <em>Default Ramp Mode</em> feature
+							lets you choose which mode (Light or Dark) will serve as the foundation for your
+							color/design system.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="pipette" class="pipette"></i>
+						</div>
+						<h3>Color Value Display</h3>
+						<h4>Want to see the numbers behind the swatch?</h4>
+						<p>Each color swatch displays its HEX, HSL, or OKLCH values—no guessing or extra clicks needed.
+						</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="paint-roller" class="paint-roller"></i>
+						</div>
+						<h3>Last Used Color</h3>
+						<h4>Can’t remember which base color you chose?</h4>
+						<p>Color‑Ramp.com remembers! By storing settings in the browser, you’ll see your previous colors
+							and ramps on return—so you can pick up right where you left off.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="link" class="link"></i>
+						</div>
+						<h3>Friendly URLs</h3>
+						<h4>Building a style guide or sharing work?</h4>
+						<p>Each URL reflects your color space, default ramp mode, and chosen base color—making sharing
+							ramps or bookmarking them a breeze.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="boxes" class="boxes"></i>
+						</div>
+						<h3>Create Collections</h3>
+						<h4>Juggling colors for multiple clients or brands?</h4>
+						<p>Stay organized by saving your ramps into custom collections. Edit their names by client or
+							brand—and easily jump back in whenever inspiration (or feedback) strikes.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container">
+							<i data-lucide="clipboard" class="clipboard"></i>
+						</div>
+						<h3>Copy Values to Clipboard</h3>
+						<h4>Need to paste color values fast?</h4>
+						<p>Click any HEX, HSL, or OKLCH value—and boom! It’s in your clipboard. A small tooltip confirms
+							the action.</p>
+					</div>
+
+					<div class="feature-card">
+						<div class="icon-container tailwind">
+							<svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" fill="none">
+								<path fill="currentColor" fill-rule="evenodd"
+									d="M16.32 7.6c-3.73 0-6.06 1.87-7 5.6 1.4-1.87 3.04-2.57 4.9-2.1 1.07.27 1.83 1.04 2.67 1.9 1.37 1.39 2.96 3 6.43 3 3.74 0 6.07-1.87 7-5.6-1.4 1.87-3.03 2.57-4.9 2.1-1.06-.27-1.82-1.04-2.67-1.9-1.37-1.39-2.96-3-6.43-3Zm-7 8.4c-3.73 0-6.06 1.87-7 5.6 1.4-1.87 3.04-2.57 4.9-2.1 1.07.27 1.83 1.04 2.67 1.9 1.37 1.39 2.96 3 6.43 3 3.74 0 6.07-1.87 7-5.6-1.4 1.87-3.03 2.57-4.9 2.1-1.06-.27-1.82-1.04-2.67-1.9-1.37-1.39-2.96-3-6.43-3Z"
+									clip-rule="evenodd" />
+							</svg>
+						</div>
+						<h3>Tailwind CSS Scale</h3>
+						<h4>Working with Tailwind?</h4>
+						<p>Shades are labeled according to the Tailwind CSS numeric scale (<span class="code">50, 100,
+								…, 900, 950</span>) so your ramps slot right into your utility-first workflow.</p>
+					</div>
+
+				</div>
+			</section>
+
+			<!-- Technologies Section -->
+			<section class="technologies">
+				<div class="section-header">
+					<h2>Technologies & Tools</h2>
+					<p>Here's what I used to build Color-Ramp.com</p>
+				</div>
+				<div class="tech-grid">
+					<img src="images/logo-js.svg" alt="JavaScript Logo" title="JavaScript">
+					<img src="images/logo-node-js.svg" alt="Node.js Logo" title="Node.js">
+					<img src="images/logo-html-5.svg" alt="HTML5 Logo" title="HTML5">
+					<img src="images/logo-css-3.svg" alt="CSS3 Logo" title="CSS3">
+					<img src="images/logo-figma.svg" alt="Figma Logo" title="Figma">
+					<img src="images/logo-windsurf.svg" alt="Windsurf Logo" title="Windsurf">
+					<img src="images/logo-antigravity.svg" alt="Antigravity Logo" title="Antigravity">
+					<img src="images/logo-openai.svg" alt="OpenAI Logo" title="ChatGPT">
+					<img src="images/logo-magic-patterns.svg" alt="Magic Patterns Logo" title="Magic Patterns">
+					<img src="images/logo-threejs.svg" alt="Three.js Logo" title="Three.js">
+					<img src="images/logo-lucide.svg" alt="Lucide Logo" title="Lucide">
+					<img src="images/logo-google-fonts.svg" alt="Google Fonts Logo" title="Google Fonts">
+					<img src="images/logo-color-ramp.svg" alt="Color Ramp Logo" title="Color-Ramp.com 😊">
+				</div>
+			</section>
+
+			<!-- Final CTA Section -->
+			<section class="final-cta">
+				<div class="section-header">
+					<h2>Start creating!</h2>
+					<p>Choose your color space:</p>
+				</div>
+				<div class="button-group">
+					<a href="index-oklch.html" class="btn btn-oklch">OKLCH</a>
+					<a href="index-hsl.html" class="btn btn-hsl">HSL</a>
+				</div>
+			</section>
+
+		</div>
+	</main>
+
+	<div id="footer-placeholder"></div>
+
+	<!-- Scripts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<script src="js/scripts-v2.js"></script>
+	<script src="js/tooltip.js" defer></script>
+	<script src="js/footer-loader.js?v=1.1" defer></script>
+
+	<!-- Lucide Icons Script -->
+	<script>
+		// This is important to render the Lucide icons
+		lucide.createIcons();
+	</script>
+</body>
+
+</html>

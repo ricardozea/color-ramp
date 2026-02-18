@@ -1,0 +1,43 @@
+{
+  "name": "Color-Ramp",
+  "short_name": "Color-Ramp",
+  "description": "Create 100% accessible color ramps in less than 5 seconds, no BS. (Then import them into Figma!)",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#001D38",
+  "theme_color": "#001D38",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": [
+    "design",
+    "tools",
+    "accessibility",
+    "color",
+    "figma",
+    "web-development"
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

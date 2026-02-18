@@ -1,0 +1,7 @@
+Server local:
+node server.cjs
+Z:\Personal\ricardozea.net\Color Ramp>node server.cjs
+
+Server Figma Plugin:
+npm run watch
+Z:\Personal\ricardozea.net\Color Ramp\Designs\Figma Plugin\Color-Ramp.com>npm run watch

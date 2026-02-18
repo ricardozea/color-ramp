@@ -1,0 +1,51 @@
+Animated Background Feature - Ideas & Enhancements
+
+Visual Customization:
+*   Particle Color:
+    *   Static color (e.g., subtle dark blue, purple, or a color from the app's theme).
+    *   Dynamic color (e.g., colors changing over time, or based on mouse position).
+    *   Gradient colors across particles.
+    *   Colors derived from the generated color ramp in the main app (once integrated).
+*   Particle Appearance:
+    *   Adjust particle size (current `gl_PointSize = s * 15.0 * ...`).
+    *   Adjust particle density (controlled by `amountX`, `amountY`, and `gap` in `initParticles`).
+    *   Vary particle opacity (current `gl_FragColor = vec4(..., 0.5)`).
+    *   Use custom textures for particles instead of solid colors/shapes.
+*   Particle Shape:
+    *   Currently circles (was squares). Explore other simple shapes via shaders or textures.
+*   Background Color:
+    *   Change the overall background color of the canvas (currently dark `#111` in `style.css`).
+    *   Make the canvas background transparent for seamless integration into the main app.
+
+Animation & Interaction:
+*   Animation Behavior:
+    *   Adjust wave speed (current `uTime += 0.0025`).
+    *   Modify wave amplitude/intensity (shader math: `sin(p.x + uTime) * 0.5`).
+    *   Change wave complexity/frequency (shader math).
+    *   Explore different mathematical functions for wave patterns (e.g., Perlin noise for more organic movement).
+    *   Add multiple wave layers or interference patterns.
+*   Mouse Interaction:
+    *   Make particles react to mouse movement (e.g., repel, attract, change color/size near cursor).
+        *   Currently, mouse coordinates are tracked (`this.config.mouse`) but not used in the shader.
+    *   Create ripples or distortions emanating from the mouse position.
+*   User Controls (Standalone/Debug):
+    *   Add simple UI controls (e.g., using a library like dat.GUI) to tweak parameters like speed, color, density in real-time for easier experimentation.
+    *   Implement OrbitControls for camera manipulation during debugging (currently commented out).
+
+Performance & Integration:
+*   Performance Optimization:
+    *   Monitor CPU/GPU usage, especially with higher particle counts.
+    *   Reduce particle count (`amountX`, `amountY`) if performance issues arise.
+    *   Simplify shaders if they become too complex.
+    *   Throttle animation updates if necessary.
+*   Integration with Main App:
+    *   Plan how the standalone background will be layered behind the main app's UI.
+    *   Ensure transparency works correctly (`alpha: true` in `WebGLRenderer` and transparent `gl_FragColor`).
+    *   Manage potential performance impact on the main application.
+    *   Decide if the animation should pause when not visible or when the app is not in focus.
+    *   Consider passing color theme information from the main app to the background animation.
+
+Advanced Ideas:
+*   Audio Reactivity: Make the animation react to audio input (if relevant for future app features).
+*   Custom Shaders: Write more elaborate vertex or fragment shaders for unique effects.
+*   Post-Processing Effects: Add effects like bloom, depth of field, etc. (can be performance-intensive).

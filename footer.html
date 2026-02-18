@@ -1,0 +1,131 @@
+<footer>
+	<div class="homepage-container footer-container">
+		<div class="footer-main">
+			<div class="footer-brand">
+				<a href="/" class="logo-link">
+					<img src="images/logo-color-ramp-full.svg" alt="Color Ramp Logo" class="logo">
+				</a>
+				<p>Create accessible color ramps in less than 5 seconds, no BS.</p>
+				<div class="button-group">
+					<a href="https://www.buymeacoffee.com/ricardozea" target="_blank" class="bmc-button"
+						title="Buy me a coffee">
+						<span style="margin-right: 8px; font-size: 1.2rem;">☕</span>
+						<span>Buy me a coffee :)</span>
+					</a>
+					<div class="rotating-border-container">
+						<div class="rotating-border-glow"></div>
+						<a href="https://www.figma.com/community/plugin/1523173886699098356/colorramp"
+							class="rotating-border-element btn btn-figma" target="_blank"
+							title="Link opens in a new tab">
+							<img src="images/logo-figma.svg" alt="Figma Logo" class="figma-logo">
+							Figma Plugin
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="social-links">
+				<a href="https://x.com/color_ramp" target="_blank" title="Link opens a new tab"><img
+						src="images/logo-X.svg" alt="X Logo" aria-label="X Logo"></a>
+				<a href="https://instagram.com/color_ramp" target="_blank" title="Link opens a new tab"><img
+						src="images/logo-instagram.svg" alt="Instagram Logo" aria-label="Instagram Logo"></a>
+				<a href="https://facebook.com/colorramp" target="_blank" title="Link opens a new tab"><img
+						src="images/logo-facebook.svg" alt="Facebook Logo" aria-label="Facebook Logo"></a>
+				<!-- <a href="https://www.producthunt.com/posts/color-ramp" target="_blank" title="Link opens a new tab"><img src="images/logo-product-hunt.svg" alt="Product Hunt Logo" aria-label="Product Hunt Logo"></a> -->
+			</div>
+		</div>
+		<div class="footer-secondary">
+			<p class="copyright"> 2025 - <span id="current-year"></span> <code>(v2.6)</code> - Color-Ramp.com by <a
+					href="https://ricardozea.design" target="_blank" title="Link opens in a new tab"
+					class="dynamic-color-text">Ricardo Zea</a><br>
+				<a href="/terms-and-conditions.html" class="dynamic-color-text">Terms & Conditions</a> | <a
+					href="/privacy-policy.html" class="dynamic-color-text">Privacy Policy</a>
+			</p>
+			<p class="feedback-link">Found a glitch or a shade that failed accessibility? <a href="#" id="contactRicardo" aria-label="Contact Ricardo" title="Send me a message!" class="dynamic-color-text">Contact me so I can fix it!</a> 😊</p>
+		</div>
+	</div>
+
+	<!-- Contact Form Modal -->
+	<div id="contactRicardoModalBackdrop" class="modal-backdrop"></div>
+	<div id="contactRicardoModal" class="modal contact-ricardo-modal" role="dialog" aria-modal="true"
+		aria-labelledby="contactModalTitle">
+		<button id="closeContactRicardoModal" class="modal-close-btn" aria-label="Close modal">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+				stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M18 6 6 18" />
+				<path d="m6 6 12 12" />
+			</svg>
+		</button>
+		<form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+			<h2 id="contactModalTitle">Contact me 👇🏽</h2>
+
+			<!-- Replace with your Access Key -->
+			<input type="hidden" name="access_key" value="b249942b-5b54-46c1-a835-0231228f15fa">
+
+			<!-- Form Inputs. Each input must have a name="" attribute -->
+			<div class="side-by-side">
+				<label for="name-input">Your name:
+					<input type="text" name="name" id="name-input" required>
+				</label>
+				<label for="email-input">Your email:
+					<input type="email" name="email" id="email-input" required>
+				</label>
+			</div>
+			<label for="message-input">Message:
+				<textarea name="message" id="message-input" required></textarea>
+			</label>
+			<input type="hidden" name="subject" class="hidden" value="color-ramp.com - Contact Form">
+
+			<!-- Honeypot Spam Protection -->
+			<input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+			<div id="result"></div>
+			<button type="submit" class="submit-button">Send message! 👉🏽</button>
+			<small class="disclaimer">No worries, no sensitive data being transmitted. This form is only used to contact me.</small>
+		</form>
+	</div>
+
+	<!-- Contact Modal Script -->
+	<!-- <script>
+		document.addEventListener('DOMContentLoaded', () => {
+			// Reusable Modal Logic
+			function setupModal(triggerId, modalId, closeBtnId, backdropId) {
+				const trigger = document.getElementById(triggerId);
+				const modal = document.getElementById(modalId);
+				const closeBtn = document.getElementById(closeBtnId);
+				const backdrop = document.getElementById(backdropId);
+
+				if (!trigger || !modal || !closeBtn || !backdrop) {
+					return;
+				}
+
+				const openModal = (e) => {
+					e.preventDefault();
+					modal.classList.add('active');
+					backdrop.classList.add('active');
+					document.body.classList.add('modal-open');
+					closeBtn.focus();
+				};
+
+				const closeModal = () => {
+					modal.classList.remove('active');
+					backdrop.classList.remove('active');
+					document.body.classList.remove('modal-open');
+					if (trigger) trigger.blur();
+				};
+
+				trigger.addEventListener('click', openModal);
+				closeBtn.addEventListener('click', closeModal);
+				backdrop.addEventListener('click', closeModal);
+
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape' && modal.classList.contains('active')) {
+						closeModal();
+					}
+				});
+			}
+
+			// Setup Contact Form Modal
+			setupModal('contactRicardo', 'contactRicardoModal', 'closeContactRicardoModal', 'contactRicardoModalBackdrop');
+		});
+
+	</script> -->
+</footer>
