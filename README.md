@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
-    <img src="images/logo-color-ramp.svg" alt="Color Ramp logo" width="180" />
+    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" width="180" />
   </a>
 </p>
 
