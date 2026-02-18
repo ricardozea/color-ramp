@@ -1,5 +1,11 @@
 # Color Ramp
 
+<p align="center">
+  <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
+    <img src="images/logo-color-ramp.svg" alt="Color Ramp logo" width="180" />
+  </a>
+</p>
+
 ## Description
 
 Color Ramp is a web-based tool for generating harmonious, accessible color ramps from a single base color. It follows the Tailwind-style 11-shade scale (50–950) and ensures the generated colors meet WCAG contrast requirements against an appropriate text color (black or white).
