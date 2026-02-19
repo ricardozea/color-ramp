@@ -1,10 +1,52 @@
 # Color Ramp
 
-<p align="center">
+<style>
+  .readme-hero {
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background: #001121;
+    text-align: center;
+  }
+
+  .readme-hero img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+  }
+
+  .readme-hero p {
+    font-size: 18px;
+    color: #edf6ff;
+    margin-bottom: 0;
+  }
+  .color-highlight {
+    font-weight: bolder;
+    font-size: 24px;
+    background: linear-gradient(to right, #b600b9, #04da00, #006dd3);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
+<div class="readme-hero">
   <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
-    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" width="180" />
+    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" />
   </a>
-</p>
+  <p>Create accessible <span class="color-highlight">color ramps</span> in less than 5 seconds, no BS.</p>
+</div>
+
+## Project Website
+
+[https://color-ramp.com](https://color-ramp.com)
+
+## Why Color-Ramp?
+
+I needed to create a simple color ramp with fully accessible colors for a project. And I also needed to create a color ramp, in Dark mode. I used all kinds of online tools and Figma plugins. I got it done but not after spending a ridiculous amount of time. And that's putting it mildly.
+
+So I decided to create my own tool. Color Ramp was born.
+
+We are now able to create fully accessible color ramps in less than 5 seconds, no BS. And then export those ramps into Figma with the [Color Ramp Figma plugin](https://www.figma.com/community/plugin/1523173886699098356/color-ramp).
 
 ## Description
 
@@ -52,25 +94,3 @@ It’s built for designers and developers who want to explore color in context, 
 *   **Contrast Ratios:** The primary goal is to generate colors that meet WCAG AA (4.5:1) or AAA (7:1) contrast ratios where appropriate. The tool dynamically determines if black or white text should be used for each shade and adjusts the shade to meet at least 4.5:1 against that text.
 
 *   **Visual Cues:** Clear visual distinctions are made for active states, hover states, and badges.
-
-## Project Structure
-
-```
-Color Ramp/
-├── index.html          # Homepage / entry point
-├── index-oklch.html    # OKLCH generator
-├── index-hsl.html      # HSL generator
-├── js/                 # Application logic
-│   ├── color-ramp-oklch.js
-│   ├── color-ramp-hsl.js
-│   ├── footer-loader.js
-│   └── features.js
-├── css/
-│   ├── styles-v1.css
-│   ├── styles-v2.css
-│   └── collections.css
-├── footer.html         # Shared footer + Contact Me modal
-└── README.md
-```
-
-This project is built with a strong focus on practical accessibility, fast iteration, and export-ready output for real design systems.
