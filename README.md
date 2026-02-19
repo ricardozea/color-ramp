@@ -54,7 +54,8 @@ It’s built for designers and developers who want to explore color in context, 
 *   **HTML5:** For the basic structure of the application.
 *   **CSS3:** For styling the application. All styles are custom-written.
 *   **JavaScript (ES6+):** For all the client-side application logic, including color manipulation, ramp generation, UI updates, and event handling.
-*   **Color.js:** A modern, powerful color science library (loaded via CDN as an ES Module) used for all color parsing, manipulation, and contrast calculations. It enables the use of the OKLCH color space, which provides perceptually uniform color ramps.
+*   **Color.js:** A modern, powerful color science library used for OKLCH parsing/manipulation and contrast calculations.
+*   **TinyColor:** A lightweight color utility library used for the HSL generator (parsing/manipulation and readability/contrast calculations).
 *   **Three.js:** A 3D graphics library (loaded via CDN) used to create the interactive animated background.
 
 ## Key Accessibility Considerations
