@@ -1,13 +1,46 @@
 # Color Ramp
 
-<div align="center" style="display:block;padding:20px;border-radius:10px;background:#001121;">
-  <a href="https://color-ramp.com" target="_blank" rel="noreferrer" style="display:inline-block;">
-    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" style="max-width:300px;width:100%;height:auto;" />
-  </a>
-  <p style="font-size:18px;color:#edf6ff;margin-bottom:0;">
-    Create accessible <span style="font-weight:700;font-size:24px;background:linear-gradient(90deg,#b600b9,#04da00,#006dd3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;">color ramps</span> in less than 5 seconds, no BS.
-  </p>
-</div>
+<svg fill="none" viewBox="0 0 740 180" width="740" height="180" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        .readme-hero {
+            display: block;
+            padding: 20px;
+            border-radius: 10px;
+            background: #001121;
+            text-align: center;
+        }
+
+        .readme-hero img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+        }
+
+        .readme-hero p {
+            font-size: 18px;
+            color: #edf6ff;
+            margin-bottom: 0;
+        }
+        .color-highlight {
+            font-weight: bolder;
+            font-size: 24px;
+            background: linear-gradient(to right, #b600b9, #04da00, #006dd3);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        </style>
+
+      <div class="readme-hero">
+        <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
+            <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" />
+        </a>
+        <p>Create accessible <span class="color-highlight">color ramps</span> in less than 5 seconds, no BS.</p>
+      </div>
+    </div>
+  </foreignObject>
+</svg>
 
 ## Project Website
 
@@ -15,9 +48,9 @@
 
 ## Why Color-Ramp?
 
-I needed to create a simple color ramp with fully accessible colors for a project. And I also needed to create a color ramp, in Dark mode. I used all kinds of online tools and Figma plugins. I got it done but not after spending a ridiculous amount of time. And that's putting it mildly.
+I needed to create accessible color ramps for a project with both Light and Dark modes. I tried every online tool and Figma plugin I could find. I got it done, but not without wasting a ridiculous amount of time 🤬.
 
-So I decided to create my own tool. Color Ramp was born.
+So I decided to create my own tool. Color Ramp was born 😎.
 
 We are now able to create fully accessible color ramps in less than 5 seconds, no BS. And then export those ramps into Figma with the [Color Ramp Figma plugin](https://www.figma.com/community/plugin/1523173886699098356/color-ramp).
 
