@@ -1,39 +1,12 @@
 # Color Ramp
 
-<style>
-  .readme-hero {
-    display: block;
-    padding: 20px;
-    border-radius: 10px;
-    background: #001121;
-    text-align: center;
-  }
-
-  .readme-hero img {
-    max-width: 300px;
-    width: 100%;
-    height: auto;
-  }
-
-  .readme-hero p {
-    font-size: 18px;
-    color: #edf6ff;
-    margin-bottom: 0;
-  }
-  .color-highlight {
-    font-weight: bolder;
-    font-size: 24px;
-    background: linear-gradient(to right, #b600b9, #04da00, #006dd3);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-</style>
-
-<div class="readme-hero">
-  <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
-    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" />
+<div align="center" style="display:block;padding:20px;border-radius:10px;background:#001121;">
+  <a href="https://color-ramp.com" target="_blank" rel="noreferrer" style="display:inline-block;">
+    <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" style="max-width:300px;width:100%;height:auto;" />
   </a>
-  <p>Create accessible <span class="color-highlight">color ramps</span> in less than 5 seconds, no BS.</p>
+  <p style="font-size:18px;color:#edf6ff;margin-bottom:0;">
+    Create accessible <span style="font-weight:700;font-size:24px;background:linear-gradient(90deg,#b600b9,#04da00,#006dd3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;">color ramps</span> in less than 5 seconds, no BS.
+  </p>
 </div>
 
 ## Project Website
