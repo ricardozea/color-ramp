@@ -1,46 +1,8 @@
 # Color Ramp
 
-<svg fill="none" viewBox="0 0 740 180" width="740" height="180" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml">
-      <style>
-        .readme-hero {
-            display: block;
-            padding: 20px;
-            border-radius: 10px;
-            background: #001121;
-            text-align: center;
-        }
-
-        .readme-hero img {
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-        }
-
-        .readme-hero p {
-            font-size: 18px;
-            color: #edf6ff;
-            margin-bottom: 0;
-        }
-        .color-highlight {
-            font-weight: bolder;
-            font-size: 24px;
-            background: linear-gradient(to right, #b600b9, #04da00, #006dd3);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        </style>
-
-      <div class="readme-hero">
-        <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
-            <img src="images/logo-color-ramp-full.svg" alt="Color Ramp logo" />
-        </a>
-        <p>Create accessible <span class="color-highlight">color ramps</span> in less than 5 seconds, no BS.</p>
-      </div>
-    </div>
-  </foreignObject>
-</svg>
+  <a href="https://color-ramp.com" target="_blank" rel="noreferrer">
+    <img src="images/logo-for-github.svg" alt="Color Ramp logo" />
+  </a>
 
 ## Project Website
 
