@@ -1014,6 +1014,94 @@ footer {
     z-index: 1050;
 }
 
+body.homepage .contact-ricardo-modal {
+    background-color: #001D38;
+    color: #edf6ff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+body.homepage .contact-ricardo-modal h2 {
+    color: #edf6ff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+body.homepage .contact-ricardo-modal label {
+    color: #d7ecff;
+    font-weight: 700;
+}
+
+body.homepage .contact-ricardo-modal input,
+body.homepage .contact-ricardo-modal textarea {
+    background-color: #bfe2ff;
+    color: #001121;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 6px;
+    outline: none;
+}
+
+body.homepage .contact-ricardo-modal input:focus,
+body.homepage .contact-ricardo-modal textarea:focus {
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 0 3px rgba(134, 197, 255, 0.22);
+}
+
+body.homepage #contact-form {
+    width: 100%;
+}
+
+body.homepage #contact-form .side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 22px;
+    align-items: start;
+}
+
+body.homepage #contact-form label {
+    display: block;
+}
+
+body.homepage #contact-form label input,
+body.homepage #contact-form label textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+body.homepage #contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+body.homepage #contact-form .submit-button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 18px;
+}
+
+@media (max-width: 680px) {
+    body.homepage #contact-form .side-by-side {
+        grid-template-columns: 1fr;
+    }
+}
+
+body.homepage .contact-ricardo-modal .submit-button {
+    background-color: rgba(0, 0, 0, 0.35);
+    color: #edf6ff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+}
+
+body.homepage .contact-ricardo-modal .submit-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+body.homepage .contact-ricardo-modal .disclaimer {
+    color: rgba(237, 246, 255, 0.8);
+}
+
 .modal-backdrop {
     position: fixed;
     top: 0;
