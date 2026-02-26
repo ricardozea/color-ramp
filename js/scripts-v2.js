@@ -133,12 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (paused) {
                 toggleBtn.setAttribute('title', 'Enable background movement');
                 toggleBtn.setAttribute('aria-label', 'Enable background movement');
-                toggleBtn.textContent = '⏸';
+                toggleBtn.textContent = '▶';
                 toggleBtn.classList.add('bg-animation-paused');
             } else {
                 toggleBtn.setAttribute('title', 'Disable background movement');
                 toggleBtn.setAttribute('aria-label', 'Disable background movement');
-                toggleBtn.textContent = '▶';
+                toggleBtn.textContent = '⏸';
                 toggleBtn.classList.remove('bg-animation-paused');
             }
 
