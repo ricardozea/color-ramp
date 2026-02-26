@@ -561,19 +561,10 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .button-group .btn:hover {
-        animation: none;
-    }
-
-    .color-space-nav a:hover {
-        animation: none;
-    }
-
+    .button-group .btn:hover,
+    .color-space-nav a:hover,
     .toggle-bg-btn:hover,
-    .bg-animation-paused:hover {
-        animation: none;
-    }
-
+    .bg-animation-paused:hover,
     .bmc-button:hover {
         animation: none;
     }
