@@ -467,13 +467,42 @@ footer {
     font-style: normal;
 }
 
+.hero-content .brush-stroke-container {
+    margin: -5px auto 15px;
+}
+
+.hero-content .brush-stroke {
+    display: block;
+    width: 100%;
+    transform: rotate(-4deg);
+    transform-origin: left;
+}
+
 .hero-content .color-highlight {
     font-size: clamp(4rem, 2.5rem + 2vw, 4.83rem);
     font-weight: 800;
     line-height: .7;
-    background: linear-gradient(to right, var(--dark-purple-400), var(--dark-green-400), var(--dark-blue-400));
+    background: linear-gradient(90deg, var(--dark-purple-400), var(--dark-green-400), var(--dark-blue-400), var(--dark-purple-400));
+    background-size: 200% 100%;
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-content .color-highlight {
+        animation: none;
+    }
 }
 
 .hero-content .subtitle {
