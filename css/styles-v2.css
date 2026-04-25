@@ -291,8 +291,8 @@ body {
 
 /* Avoid layout jump due to browser scrollbars hiding when opening a modal */
 body.modal-open {
-    overflow: hidden;
-    padding-right: var(--scrollbar-width, 0px);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .homepage-container h1,
@@ -1144,12 +1144,14 @@ body.homepage .contact-ricardo-modal .disclaimer {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease-out, visibility 0s 0.2s linear;
+    pointer-events: none;
 }
 
 .modal-backdrop.active {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.2s ease-out;
+    pointer-events: auto;
 }
 
 .modal {

@@ -1549,19 +1549,21 @@ function openExportModalWithCollection(collection) {
 
   // Add event listeners for close button and backdrop
   const closeBtn = document.getElementById('close-export-modal');
-  closeBtn.onclick = (e) => {
+  const closeHandler2 = (e) => {
     e.preventDefault();
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     closeTopModal();
   };
+  closeBtn.addEventListener('click', closeHandler2);
 
-  backdrop.onclick = (e) => {
+  const backdropHandler = (e) => {
     if (e.target === backdrop) {
       e.preventDefault();
-      e.stopPropagation();
+      e.stopImmediatePropagation();
       closeTopModal();
     }
   };
+  backdrop.addEventListener('click', backdropHandler);
 
   // Initial generation
   generateAndDisplayJson();
@@ -1594,7 +1596,6 @@ function closeExportModal() {
   // Hide the modal
   modal.classList.remove('active');
   backdrop.classList.remove('active');
-  document.body.classList.remove('modal-open');
 
   modal.__releaseFocusTrap?.();
   modal.__releaseFocusTrap = null;
@@ -1636,6 +1637,11 @@ function closeTopModal() {
   // Only remove from stack if the close was successful
   if (wasClosed) {
     modalStack.pop();
+
+    // Only remove modal-open class when all modals are closed
+    if (modalStack.length === 0) {
+      document.body.classList.remove('modal-open');
+    }
   }
 }
 

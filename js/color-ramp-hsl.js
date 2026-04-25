@@ -2986,16 +2986,21 @@ function openExportModal(collection) {
   });
 
   // Add event listeners for close button and backdrop
-  closeBtn.onclick = (e) => {
+  const closeHandler2 = (e) => {
     e.preventDefault();
-    closeHandler();
+    e.stopImmediatePropagation();
+    closeTopModal();
   };
+  closeBtn.addEventListener('click', closeHandler2);
 
-  backdrop.onclick = (e) => {
+  const backdropHandler = (e) => {
     if (e.target === backdrop) {
-      closeHandler();
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      closeTopModal();
     }
   };
+  backdrop.addEventListener('click', backdropHandler);
 
   // Initial generation
   generateAndDisplayJson();
@@ -3029,7 +3034,6 @@ function closeExportModal() {
     // Hide the modal
     modal.classList.remove('active');
     backdrop.classList.remove('active');
-    document.body.classList.remove('modal-open');
 
     modal.__releaseFocusTrap?.();
     modal.__releaseFocusTrap = null;
@@ -3063,6 +3067,11 @@ function closeTopModal() {
 
   const { modal, closeFn } = modalStack[modalStack.length - 1];
   closeFn();
+
+  // Only remove modal-open class when all modals are closed
+  if (modalStack.length === 0) {
+    document.body.classList.remove('modal-open');
+  }
 }
 
 // Global ESC key handler
