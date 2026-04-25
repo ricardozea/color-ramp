@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npm install",
+  "framework": null,
+  "buildCommand": null,
   "outputDirectory": ".",
   "public": true,
   "cleanUrls": true,
