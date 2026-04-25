@@ -1043,10 +1043,56 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // ---- Collections Logic ----
 const COLLECTIONS_KEY = 'colorRampCollections_oklch';
+const ACTIVE_COLLECTION_KEY = 'activeCollectionId_oklch';
 
 // Generate a unique ID for collections and colors
 function generateId() {
   return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Ultra-compact share format: name|concatenatedHexes|mvString
+// Hexes are 6 chars each, lowercase, no # (shorthand expanded). Mode+Vibrancy: 1 char per color, 0-7.
+//   0-3 = light + vibrancy 0-3; 4-7 = dark + vibrancy 0-3
+function serializeCollectionMinimal(collection) {
+  const normalizeHex = (hex) => {
+    let h = (hex || '').replace('#', '').toLowerCase();
+    if (h.length === 3) h = h.split('').map(c => c + c).join('');
+    return h.length === 6 ? h : '000000';
+  };
+  const hexes = collection.colors.map(c => normalizeHex(c.base)).join('');
+  const mv = collection.colors.map(c => {
+    const modeOffset = (c.defaultMode === 'dark' || c.defaultMode === true) ? 4 : 0;
+    const vib = Math.min(3, parseInt(c.vibrancy || 0));
+    return String(modeOffset + vib);
+  }).join('');
+  return `${collection.name}|${hexes}|${mv}`;
+}
+
+function deserializeCollectionMinimal(str) {
+  const parts = (str || '').split('|');
+  if (parts.length < 2) return null;
+  const name = parts[0] || 'Shared Collection';
+  const hexes = parts[1] || '';
+  const mv = parts[2] || '';
+  const colorCount = Math.floor(hexes.length / 6);
+  if (colorCount === 0) return null;
+  const now = new Date().toISOString();
+  const colors = [];
+  for (let i = 0; i < colorCount; i++) {
+    const hex = hexes.slice(i * 6, i * 6 + 6);
+    const mvVal = parseInt(mv[i] || '0');
+    const defaultMode = mvVal >= 4 ? 'dark' : 'light';
+    const vibrancy = String(mvVal % 4);
+    let colorName = `Color ${i + 1}`;
+    if (typeof ntc !== 'undefined' && ntc.name) {
+      try {
+        const ntcResult = ntc.name('#' + hex);
+        if (ntcResult && ntcResult[1]) colorName = ntcResult[1];
+      } catch (e) {}
+    }
+    colors.push({ id: generateId(), name: colorName, base: '#' + hex, defaultMode, vibrancy, createdAt: now });
+  }
+  return { id: generateId(), name, createdAt: now, colors };
 }
 
 // Get collections from localStorage
@@ -1064,6 +1110,29 @@ function saveCollections(data) {
   localStorage.setItem(COLLECTIONS_KEY, JSON.stringify(data));
 }
 
+// Get active collection ID
+function getActiveCollectionId() {
+  return localStorage.getItem(ACTIVE_COLLECTION_KEY);
+}
+
+// Set active collection ID
+function setActiveCollectionId(collectionId) {
+  if (collectionId) {
+    localStorage.setItem(ACTIVE_COLLECTION_KEY, collectionId);
+  } else {
+    localStorage.removeItem(ACTIVE_COLLECTION_KEY);
+  }
+}
+
+// Get active collection object
+function getActiveCollection() {
+  const activeId = getActiveCollectionId();
+  if (!activeId) return null;
+  const data = getCollections();
+  if (!data || !data.collections) return null;
+  return data.collections.find(c => c && c.id === activeId) || null;
+}
+
 // Render the entire collections UI
 function renderCollections() {
   const data = getCollections();
@@ -1074,17 +1143,22 @@ function renderCollections() {
 
 
 
-  if (data.collections.length === 0) {
+  if (!data.collections || data.collections.length === 0) {
     container.innerHTML = '<p class="empty-collections-message">No collections yet. Create one to get started!</p>';
+    return;
   }
 
-  const collectionsForRender = [...data.collections].sort((a, b) => {
+  const collectionsForRender = [...data.collections].filter(c => c && c.id).sort((a, b) => {
     const aTime = Date.parse(a?.createdAt || '') || 0;
     const bTime = Date.parse(b?.createdAt || '') || 0;
     return bTime - aTime;
   });
 
   collectionsForRender.forEach(collection => {
+    // Check if this collection is active
+    const activeCollectionId = getActiveCollectionId();
+    const isActive = activeCollectionId === collection.id;
+
     const createdMetadataHtml = window.buildCollectionCreatedMetadataHtml
       ? window.buildCollectionCreatedMetadataHtml({
         createdAt: collection?.createdAt,
@@ -1097,13 +1171,13 @@ function renderCollections() {
       })
       : '';
     const collectionEl = document.createElement('div');
-    collectionEl.className = 'collection-item';
+    collectionEl.className = isActive ? 'collection-item active-collection' : 'collection-item';
     collectionEl.dataset.collectionId = collection.id;
 
     let colorsHtml = collection.colors.map(color => `
       <div class="collection-color-item" data-color-id="${color.id}" draggable="true">
         <div class="color-item-header">
-            <span class="collection-color-name" title="Click or press Enter to rename" tabindex="0" role="button">
+            <span class="collection-color-name" title="Click to rename" tabindex="0" role="button">
             <i data-lucide="pencil" class="icon-edit"></i>
             ${color.name}
             </span>
@@ -1128,26 +1202,49 @@ function renderCollections() {
       </div>
     `).join('');
 
+    // Determine checkbox icon and class based on active status
+    const checkboxIcon = isActive ? 'square-check-big' : 'square';
+    const checkboxClass = isActive ? 'btn-activate-collection active' : 'btn-activate-collection';
+
+    // Truncate collection name for display if needed
+    const displayCollectionName = collection.name.length > 25
+      ? collection.name.substring(0, 25) + '...'
+      : collection.name;
+
     collectionEl.innerHTML = `
-      <div class="collection-header">
-        <h3 class="collection-name" title="Click or press Enter to rename" tabindex="0" role="button">
-          <i data-lucide="pencil" class="icon-edit"></i>
-          ${collection.name}
-        </h3>
-        ${createdMetadataHtml}
+      <div class="collection-row-top">
+        <div class="collection-name-wrapper">
+          <h3 class="collection-name" title="${collection.name.length > 25 ? collection.name : 'Click to rename'}" tabindex="0" role="button">
+            <i data-lucide="pencil" class="icon-edit"></i>
+            <span class="collection-name-text" data-full-name="${collection.name}">${displayCollectionName}</span>
+          </h3>
+        </div>
         <div class="collection-actions">
           <button class="btn-base btn-add-color"><i data-lucide="package-plus" class="icon"></i>Add Current Color</button>
           <button class="btn-base btn-color btn-export-collection"><i data-lucide="file-up" class="icon"></i>Export to JSON</button>
+          <button class="btn-icon ${checkboxClass}"${isActive ? '' : ' title="Activate this collection"'} data-collection-id="${collection.id}">
+            <i data-lucide="${checkboxIcon}"></i>
+          </button>
+        </div>
+      </div>
+      <div class="collection-row-center">
+        ${tokenCounterHtml}
+        <div class="collection-colors-list${collection.colors.length === 0 ? ' no-colors-yet' : ''}" data-collection-id="${collection.id}">
+          ${collection.colors.length === 0
+            ? '<p class="empty-colors-message">No colors in this collection yet.</p>'
+            : colorsHtml}
+        </div>
+      </div>
+      <div class="collection-row-bottom">
+        ${createdMetadataHtml}
+        <div class="collection-bottom-actions">
+          <button class="btn-icon btn-copy-collection-url" title="Copy Collection URL">
+            <i data-lucide="link"></i>
+          </button>
           <button class="btn-icon btn-delete" title="Delete Collection">
             <i data-lucide="trash-2"></i>
           </button>
         </div>
-      </div>
-      ${tokenCounterHtml}
-      <div class="collection-colors-list${collection.colors.length === 0 ? ' no-colors-yet' : ''}" data-collection-id="${collection.id}">
-        ${collection.colors.length === 0
-          ? '<p class="empty-colors-message">No colors in this collection yet.</p>'
-          : colorsHtml}
       </div>
     `;
     container.appendChild(collectionEl);
@@ -1690,14 +1787,52 @@ function initCollectionsCrudModals() {
 
       try {
         const data = getCollections();
-        data.collections.push({
+        const newCollection = {
           id: generateId(),
           name,
           createdAt: new Date().toISOString(),
           colors: []
-        });
+        };
+
+        // If a pending color was stored (user clicked Add Current Color with no collections),
+        // auto-add it to the newly created collection
+        if (window.__pendingAddColor) {
+          let rawUserInput = window.__pendingAddColor;
+          if (/^[0-9A-Fa-f]{6}$/.test(rawUserInput)) {
+            rawUserInput = '#' + rawUserInput;
+          }
+          const processedColor = parseRgbInput(rawUserInput);
+          const colorName = getAutoColorName(processedColor);
+          let currentBaseColor;
+          try {
+            currentBaseColor = new Color(processedColor).toString({ format: "hex" });
+          } catch (e) {
+            if (!processedColor.startsWith('#') && /^[0-9A-Fa-f]{6}$/.test(processedColor)) {
+              currentBaseColor = '#' + processedColor;
+            }
+          }
+          if (currentBaseColor) {
+            const currentVibrancy = document.getElementById('vibrancy-boost-select').value;
+            const currentDefaultMode = document.getElementById('defaultRampToggle').checked ? 'dark' : 'light';
+            newCollection.colors.push({
+              id: generateId(),
+              name: colorName,
+              base: currentBaseColor,
+              vibrancy: parseInt(currentVibrancy, 10),
+              defaultMode: currentDefaultMode
+            });
+          }
+          window.__pendingAddColor = null;
+        }
+
+        data.collections.push(newCollection);
+
+        // Set the newly created collection as active
+        setActiveCollectionId(newCollection.id);
+
         saveCollections(data);
         renderCollections();
+        updateAddColorButtonText();
 
         appToast.success('Collection created successfully!');
 
@@ -1803,9 +1938,10 @@ function initCollectionsCrudModals() {
         // ignore
       }
 
-      data.collections = data.collections.filter(c => c.id !== collectionId);
+      data.collections = data.collections.filter(c => c && c.id && c.id !== collectionId);
       saveCollections(data);
       renderCollections();
+      updateAddColorButtonText();
 
       appToast.info('Collection deleted');
       closeIfTop(deleteCollectionModal);
@@ -1950,8 +2086,61 @@ function initCollectionsCrudModals() {
   // ---- Collections Logic ----
   const collectionsContainer = document.getElementById('collections-section');
 
+  // Check for shared collection URL param
+  const collectionUrlParams = new URLSearchParams(window.location.search);
+  const encodedCollection = collectionUrlParams.get('collection');
+  if (encodedCollection) {
+    try {
+      const decoded = LZString.decompressFromEncodedURIComponent(encodedCollection);
+      if (decoded && decoded.includes('|')) {
+        const fullCollection = deserializeCollectionMinimal(decoded);
+        if (fullCollection && fullCollection.id) {
+          const data = getCollections();
+          if (!data) {
+            saveCollections({ collections: [fullCollection] });
+          } else {
+            if (!data.collections) data.collections = [];
+            data.collections.push(fullCollection);
+            saveCollections(data);
+          }
+          // Set imported collection as active
+          setActiveCollectionId(fullCollection.id);
+          // Clean the URL so refreshing doesn't re-import
+          const cleanUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+          // Re-render to show the imported collection
+          renderCollections();
+          updateAddColorButtonText();
+        }
+      }
+    } catch (err) {
+      console.error('Failed to import collection from URL:', err);
+    }
+  }
+
+  // Set default active collection if none is set
+  const activeId = getActiveCollectionId();
+  if (!activeId) {
+    const data = getCollections();
+    if (data && data.collections && data.collections.length > 0) {
+      // Sort by createdAt to find the latest collection
+      const sortedCollections = [...data.collections].sort((a, b) => {
+        const aTime = Date.parse(a?.createdAt || '') || 0;
+        const bTime = Date.parse(b?.createdAt || '') || 0;
+        return bTime - aTime;
+      });
+      // Set the latest created collection as active
+      if (sortedCollections[0]) {
+        setActiveCollectionId(sortedCollections[0].id);
+      }
+    }
+  }
+
   // Defer initial render until all resources are loaded to prevent race conditions
   renderCollections();
+
+  // Update Add to Collection button text with active collection name
+  updateAddColorButtonText();
 
   if (!window.__collectionsCrudModals) {
     window.__collectionsCrudModals = initCollectionsCrudModals();
@@ -2198,23 +2387,62 @@ function initCollectionsCrudModals() {
   // Event listeners have already been set up above
   // This duplicate block has been removed to prevent multiple event listeners
 
+  // Function to update Add to Collection button text
+  function updateAddColorButtonText() {
+    const addColorBtn = document.getElementById('add-color-shortcut-btn');
+    if (!addColorBtn) return;
+
+    const data = getCollections();
+    const validCollections = data && data.collections ? data.collections.filter(c => c && c.id) : [];
+
+    if (validCollections.length > 0) {
+      const activeCollection = getActiveCollection();
+      if (activeCollection && activeCollection.name) {
+        const displayName = activeCollection.name.length > 20
+          ? activeCollection.name.substring(0, 20) + '...'
+          : activeCollection.name;
+        addColorBtn.innerHTML = `<i data-lucide="package-plus" class="icon"></i> Add to Collection: ${displayName}`;
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      } else {
+        addColorBtn.innerHTML = '<i data-lucide="package-plus" class="icon"></i> Add to Collection';
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
+    } else {
+      addColorBtn.innerHTML = '<i data-lucide="package-plus" class="icon"></i> Add to Collection';
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    }
+  }
+
   // ---- Add Color Shortcut Button Listener ----
   const addColorShortcutBtn = document.getElementById('add-color-shortcut-btn');
   if (addColorShortcutBtn) {
     addColorShortcutBtn.addEventListener('click', () => {
       const data = getCollections();
-      const collections = data.collections;
+      const collections = data.collections || [];
+      const validCollections = collections.filter(c => c && c.id);
 
-      if (collections.length === 0) {
-        alert('Please create a collection first to save your color.');
-        document.getElementById('collections-section').scrollIntoView({ behavior: 'smooth' });
+      if (validCollections.length === 0) {
+        // Store the raw input so it can be auto-added after the collection is created
+        window.__pendingAddColor = document.getElementById('colorInput').value.trim();
+
+        // Open the Create New Collection modal instead of showing an alert
+        if (window.__collectionsCrudModals?.openNewCollectionModal) {
+          window.__collectionsCrudModals.openNewCollectionModal(addColorShortcutBtn);
+        }
         return;
       }
 
-      // If there are multiple collections, use the first one
-      const collection = collections[0];
-      // Scroll to the collections section so the user can see the color being added
-      document.getElementById('collections-section').scrollIntoView({ behavior: 'smooth' });
+      // Use the active collection, or fall back to first collection
+      const activeCollectionId = getActiveCollectionId();
+      const collection = activeCollectionId && validCollections.find(c => c.id === activeCollectionId)
+        ? validCollections.find(c => c.id === activeCollectionId)
+        : validCollections[0];
       let rawUserInput = document.getElementById('colorInput').value.trim();
 
       // Handle hex values that might be missing the # prefix
@@ -2251,13 +2479,17 @@ function initCollectionsCrudModals() {
       });
       saveCollections(data);
       renderCollections();
-      if (window.appToast && window.APP_TOAST_MESSAGES) {
-        window.appToast.success(window.APP_TOAST_MESSAGES.colorAdded);
+
+      // Truncate collection name if needed
+      const displayName = collection.name.length > 30
+        ? collection.name.substring(0, 30) + '...'
+        : collection.name;
+
+      if (window.appToast) {
+        window.appToast.success(`Color added to collection "${displayName}"`);
       } else if (window.showAppToast) {
-        window.showAppToast('Color added successfully!');
+        window.showAppToast(`Color added to collection "${displayName}"`);
       }
-      // Also scroll to the collection to see the new color
-      document.querySelector(`.collection-item[data-collection-id="${collection.id}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   }
 
@@ -2268,7 +2500,7 @@ function initCollectionsCrudModals() {
       const collectionItem = e.target.closest('.collection-item');
       if (!collectionItem) return;
       const collectionId = collectionItem.dataset.collectionId;
-      const collection = data.collections.find(c => c.id === collectionId);
+      const collection = data.collections.filter(c => c && c.id).find(c => c.id === collectionId);
 
       // Add Current Color to Collection
       if (e.target.classList.contains('btn-add-color')) {
@@ -2310,17 +2542,31 @@ function initCollectionsCrudModals() {
         collection.colors.push(newColor);
         saveCollections(data);
         renderCollections();
-        if (window.appToast && window.APP_TOAST_MESSAGES) {
-          window.appToast.success(window.APP_TOAST_MESSAGES.colorAdded);
+
+        // Truncate collection name if needed
+        const displayName = collection.name.length > 30
+          ? collection.name.substring(0, 30) + '...'
+          : collection.name;
+
+        if (window.appToast) {
+          window.appToast.success(`Color added to "${displayName}"`);
         } else if (window.showAppToast) {
-          window.showAppToast('Color added successfully!');
+          window.showAppToast(`Color added to "${displayName}"`);
         }
       }
 
       // --- In-context Editing ---
 
       const startEditing = (element, onSave) => {
-        const currentName = element.textContent.trim();
+        if (typeof hideAllTooltips === 'function') hideAllTooltips();
+
+        // For collection names, get text from the span to avoid including icon
+        // Prefer the data-full-name attribute if available (for truncated names)
+        const nameTextSpan = element.querySelector('.collection-name-text');
+        const currentName = nameTextSpan
+          ? (nameTextSpan.dataset.fullName || nameTextSpan.textContent.trim())
+          : element.textContent.trim();
+
         const input = document.createElement('input');
         input.type = 'text';
         input.value = currentName;
@@ -2406,6 +2652,83 @@ function initCollectionsCrudModals() {
           document.getElementById('vibrancy-boost-select').value = colorToLoad.vibrancy;
           document.getElementById('defaultRampToggle').checked = (colorToLoad.defaultMode === 'dark');
           updateAll();
+        }
+      }
+
+      // Copy Collection URL
+      const copyUrlButton = e.target.closest('.btn-copy-collection-url');
+      if (copyUrlButton) {
+        const collectionId = copyUrlButton.closest('.collection-item')?.dataset.collectionId;
+        const data = getCollections();
+        const collection = data.collections.find(c => c.id === collectionId);
+        if (collection) {
+          const baseUrl = window.location.origin + window.location.pathname;
+          const encoded = LZString.compressToEncodedURIComponent(serializeCollectionMinimal(collection));
+          const shareUrl = `${baseUrl}?collection=${encoded}`;
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            appToast.success('Collection URL copied to clipboard!');
+          }).catch(() => {
+            appToast.error('Failed to copy URL');
+          });
+        }
+      }
+
+      // Activate Collection
+      const activateButton = e.target.closest('.btn-activate-collection');
+      if (activateButton) {
+        const collectionId = activateButton.dataset.collectionId;
+        const data = getCollections();
+        const collection = data.collections.find(c => c.id === collectionId);
+        if (collection) {
+          // Remove active state from all collections
+          document.querySelectorAll('.collection-item').forEach(item => {
+            item.classList.remove('active-collection');
+            const badge = item.querySelector('.active-collection-badge');
+            if (badge) badge.remove();
+
+            const checkboxBtn = item.querySelector('.btn-activate-collection');
+            if (checkboxBtn) {
+              checkboxBtn.classList.remove('active');
+              checkboxBtn.setAttribute('title', 'Activate this collection');
+              checkboxBtn.innerHTML = '<i data-lucide="square"></i>';
+            }
+          });
+
+          // Set this collection as active
+          setActiveCollectionId(collectionId);
+
+          // Add active state to clicked collection
+          const targetCollectionItem = activateButton.closest('.collection-item');
+          if (targetCollectionItem) {
+            targetCollectionItem.classList.add('active-collection');
+
+            // Add badge
+            const badge = document.createElement('div');
+            badge.className = 'active-collection-badge';
+            badge.textContent = 'Active collection';
+            targetCollectionItem.insertBefore(badge, targetCollectionItem.firstChild);
+
+            // Update checkbox button and icon
+            activateButton.classList.add('active');
+            activateButton.removeAttribute('title');
+            activateButton.innerHTML = '<i data-lucide="square-check-big"></i>';
+
+            // Recreate Lucide icons
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons();
+            }
+          }
+
+          // Update Add to Collection button text
+          updateAddColorButtonText();
+
+          // Truncate collection name for toast if needed
+          const displayName = collection.name.length > 30
+            ? collection.name.substring(0, 30) + '...'
+            : collection.name;
+
+          // Show success toast
+          appToast.success(`Active collection: "${displayName}"`);
         }
       }
 

@@ -212,7 +212,7 @@
     --corner-m: 0.444rem;            /* 8px */
     --corner-ring: 0.667rem;         /* 12px */
     --corner-l: 0.889rem;            /* 16px */
-    --corner-round: 100%;
+    --corner-round: 1000px;
 }
 
 /* Typescale */
@@ -788,6 +788,10 @@ footer {
 
 
 /* Specific Icons Colors */
+.icon-container .zap {
+    color: var(--dark-yellow-700);
+}
+
 .icon-container .accessibility {
     color: var(--dark-purple-800);
 }
@@ -806,10 +810,6 @@ footer {
 
 .icon-container .star {
     color: var(--dark-blue-700);
-}
-
-.icon-container .pipette {
-    color: var(--dark-yellow-700);
 }
 
 .icon-container .paint-roller {

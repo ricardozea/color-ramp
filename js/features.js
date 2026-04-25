@@ -973,7 +973,7 @@ function formatCollectionTimestamp(isoString) {
 function buildCollectionCreatedMetadataHtml({ createdAt }) {
   const timestampText = formatCollectionTimestamp(createdAt);
   if (!timestampText) return '';
-  return `<div class="metadata"><div class="metadata-created" title="Color ramp created on:">${timestampText}</div></div>`;
+  return `<div class="metadata"><div class="metadata-created" title="Collection created on:">${timestampText}</div></div>`;
 }
 
 function buildCollectionTokenCounterHtml({ colorCount }) {
