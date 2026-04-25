@@ -1256,6 +1256,14 @@ function renderCollections() {
       </div>
     `;
     container.appendChild(collectionEl);
+
+    // Add badge if this is the active collection
+    if (isActive) {
+      const badge = document.createElement('div');
+      badge.className = 'active-collection-badge';
+      badge.textContent = 'Active collection';
+      collectionEl.insertBefore(badge, collectionEl.firstChild);
+    }
   });
 
     // After rendering, tell Lucide to create the icons.
