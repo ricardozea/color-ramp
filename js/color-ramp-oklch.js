@@ -1065,7 +1065,8 @@ function serializeCollectionMinimal(collection) {
     const vib = Math.min(3, parseInt(c.vibrancy || 0));
     return String(modeOffset + vib);
   }).join('');
-  return `${collection.name}|${hexes}|${mv}`;
+  const names = collection.colors.map(c => encodeURIComponent(c.name || '')).join('~');
+  return `${collection.name}|${hexes}|${mv}|${names}`;
 }
 
 function deserializeCollectionMinimal(str) {
@@ -1074,17 +1075,24 @@ function deserializeCollectionMinimal(str) {
   const name = parts[0] || 'Shared Collection';
   const hexes = parts[1] || '';
   const mv = parts[2] || '';
+  const encodedNames = parts[3] || ''; // New format with color names
   const colorCount = Math.floor(hexes.length / 6);
   if (colorCount === 0) return null;
   const now = new Date().toISOString();
   const colors = [];
+
+  // Decode names if present in new format
+  const decodedNames = encodedNames ? encodedNames.split('~').map(n => decodeURIComponent(n)) : [];
+
   for (let i = 0; i < colorCount; i++) {
     const hex = hexes.slice(i * 6, i * 6 + 6);
     const mvVal = parseInt(mv[i] || '0');
     const defaultMode = mvVal >= 4 ? 'dark' : 'light';
     const vibrancy = String(mvVal % 4);
-    let colorName = `Color ${i + 1}`;
-    if (typeof ntc !== 'undefined' && ntc.name) {
+
+    // Use preserved name if available, otherwise fall back to ntc.js
+    let colorName = decodedNames[i] || `Color ${i + 1}`;
+    if (!decodedNames[i] && typeof ntc !== 'undefined' && ntc.name) {
       try {
         const ntcResult = ntc.name('#' + hex);
         if (ntcResult && ntcResult[1]) colorName = ntcResult[1];
@@ -2096,21 +2104,51 @@ function initCollectionsCrudModals() {
         const fullCollection = deserializeCollectionMinimal(decoded);
         if (fullCollection && fullCollection.id) {
           const data = getCollections();
-          if (!data) {
-            saveCollections({ collections: [fullCollection] });
+
+          // Check for duplicate: same name and same color hex values
+          const isDuplicate = data && data.collections && data.collections.some(existing => {
+            if (!existing || existing.name !== fullCollection.name) return false;
+            if (!existing.colors || existing.colors.length !== fullCollection.colors.length) return false;
+            return existing.colors.every((color, idx) =>
+              color.base.toLowerCase() === fullCollection.colors[idx].base.toLowerCase()
+            );
+          });
+
+          if (isDuplicate) {
+            // Show duplicate modal
+            const modal = document.createElement('div');
+            modal.className = 'modal-backdrop';
+            modal.innerHTML = `
+              <div class="modal-content" style="max-width: 400px;">
+                <h2>Collection Already Exists</h2>
+                <p>A collection with that name and tokens already exists.</p>
+                <button class="btn-base" style="width: 100%; margin-top: var(--space-m);">OK</button>
+              </div>
+            `;
+            document.body.appendChild(modal);
+            modal.querySelector('button').addEventListener('click', () => modal.remove());
+            modal.addEventListener('click', (e) => {
+              if (e.target === modal) modal.remove();
+            });
           } else {
-            if (!data.collections) data.collections = [];
-            data.collections.push(fullCollection);
-            saveCollections(data);
+            // Import the collection
+            if (!data) {
+              saveCollections({ collections: [fullCollection] });
+            } else {
+              if (!data.collections) data.collections = [];
+              data.collections.push(fullCollection);
+              saveCollections(data);
+            }
+            // Set imported collection as active
+            setActiveCollectionId(fullCollection.id);
+            // Re-render to show the imported collection
+            renderCollections();
+            updateAddColorButtonText();
           }
-          // Set imported collection as active
-          setActiveCollectionId(fullCollection.id);
+
           // Clean the URL so refreshing doesn't re-import
           const cleanUrl = window.location.origin + window.location.pathname;
           window.history.replaceState({}, document.title, cleanUrl);
-          // Re-render to show the imported collection
-          renderCollections();
-          updateAddColorButtonText();
         }
       }
     } catch (err) {
