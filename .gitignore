@@ -3,6 +3,7 @@ node_modules/
 
 # Local backups / archives
 Files/
+todo.txt
 
 # Build artifacts / logs
 .DS_Store
