@@ -4,17 +4,19 @@
     <img src="images/logo-for-github.svg" alt="Color-Ramp logo" />
   </a>
 
-## Project Website
+## Visit
 
 [https://color-ramp.com](https://color-ramp.com)
 
-## Why Color-Ramp?
+## Why the F* Color-Ramp?
 
 I needed to create accessible color ramps for a project with both Light and Dark modes. I tried every online tool and Figma plugin I could find. I got it done, but not without wasting a ridiculous amount of time 🤬.
 
-So I decided to create my own tool. Color-Ramp was born 😎.
+So I decided to create the damn thing myself. And here we are, Color-Ramp was born.
 
 We are now able to create fully accessible color ramps in less than 5 seconds, no BS. And then export those ramps into Figma with the [Color-Ramp Figma plugin](https://www.figma.com/community/plugin/1523173886699098356/color-ramp).
+
+And on top of that, not even Claude can do it this fast 😎.
 
 ## Description
 

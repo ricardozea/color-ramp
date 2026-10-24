@@ -1,5 +1,4 @@
 // Simple tooltip system
-if (typeof Tooltip === 'undefined') {
 class Tooltip {
   constructor() {
     this.tooltip = null;
@@ -85,7 +84,6 @@ class Tooltip {
   hideTooltip() {
     this.tooltip.classList.remove('visible');
   }
-}
 }
 
 // Global tooltip instance
